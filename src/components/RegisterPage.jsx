@@ -4,7 +4,7 @@ function Register(){
     return (
         <div className="flex flex-row">
             <Dashboard />
-            <div className="flex-grow grid place-content-center md:ml-[390px] text-techno-white bg-techno-white h-screen w-auto">
+            <div className="flex-grow grid place-content-center md:ml-[350px] text-techno-white bg-techno-white h-screen w-auto">
                 <div className="flex flex-row justify-center">
                     <div className="flex flex-col h-[500px] w-[450px] bg-techno-navy rounded-l-xl">
                         <div className="flex flex-row justify-center">
