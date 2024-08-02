@@ -2,6 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DashboardElement from "./elements/DashboardElement";
+import background from "../assets/Background.svg";
+import eye from "../assets/eye.svg";
+import eyeOff from "../assets/eyeOff.svg";
+import user from "../assets/user.svg";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -9,6 +13,8 @@ export default function RegisterPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -44,37 +50,91 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="bg-[#CED1DA] h-screen w-screen flex">
+    <div className="bg-cover bg-no-repeat h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
       <DashboardElement />
-      <div className="bg-[#2B2E63] w-[622px] h-[675px] m-auto rounded-2xl flex flex-col text-white">
-        <p className="text-[30px] mx-auto mt-20">Register</p>
+      
+      <div className="bg-techno-white bg-opacity-5 w-[600px] h-[570px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white">
+        <b className="text-[40px] mx-auto mt-10 ">Register</b>
+
         <form onSubmit={handleRegister} className="flex flex-col items-center mt-10">
           <div className="mb-6">
-            <label htmlFor="name" className="block text-[20px] mb-2">
-              Name
-            </label>
-            <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} className="bg-[#BFCBCE] w-[343px] h-[41px] text-gray-700 px-2 rounded" required />
+            <label htmlFor="name" className="block text-[20px] mb-2"></label>
+            <div className="relative">
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="bg-techno-white bg-opacity-10 w-[450px] h-[55px] rounded-[45px] text-white text-lg px-10 border border-t-techno-white"
+              placeholder="Username"
+              required
+            />
+            <img
+              src={user}
+              className="absolute right-5 top-4 "
+              alt="username"
+              width={22}
+              height={22}
+            />
+            </div>
           </div>
+
           <div className="mb-6">
-            <label htmlFor="password" className="block text-[20px] mb-2">
-              Password
-            </label>
-            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="bg-[#BFCBCE] w-[343px] h-[41px] text-gray-700 px-2 rounded" required />
+            <label htmlFor="password" className="block text-[20px] mb-2"></label>
+           <div className="relative">
+           <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="bg-techno-white bg-opacity-10 w-[450px] h-[55px] rounded-[45px] text-white text-lg px-10 border border-techno-white"
+              placeholder="Password"
+              required
+            />
+            <img
+              src={showPassword ? eyeOff : eye}
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-5 top-4 cursor-pointer "
+              alt="Toggle Password Visibility"
+              width={24}
+              height={24}
+            />
+           </div>
           </div>
+
           <div className="mb-6">
-            <label htmlFor="confirmPassword" className="block text-[20px] mb-2">
-              Confirm Password
-            </label>
-            <input id="confirmPassword" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="bg-[#BFCBCE] w-[343px] h-[41px] text-gray-700 px-2 rounded" required />
+            <label htmlFor="confirmPassword" className="block text-[20px] mb-2"></label>
+            <div className="relative">
+            <input 
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="bg-techno-white bg-opacity-10 w-[450px] h-[55px] rounded-[45px] text-white text-lg px-10 border border-techno-white mb-0"
+              placeholder="Confirm Password"
+              required
+            />
+            <img
+              src={showConfirmPassword ? eyeOff : eye}
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-5 top-4 cursor-pointer "
+              alt="Toggle Password Visibility"
+              width={24}
+              height={24}
+            />
+            
+            </div>
           </div>
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-          <div className="mt-10 space-y-4 text-center">
-            <p className="text-white underline cursor-pointer hover:text-gray-300 transition-colors" onClick={() => navigate("/login")}>
-              Already have an account? Login here
-            </p>
-            <button type="submit" className="bg-[#6F90AF] p-2 px-6 rounded-2xl hover:bg-[#5A7A9A] transition-colors" disabled={isLoading}>
+
+          {error && <p className="text-red-400 mb-1 font-bold">{error}</p>}
+
+          <div className="mt-2 space-y-3 text-center">
+            <button type="submit" className="bg-techno-gold p-2 px-6 rounded-[45px] w-[450px] h-[55px] mb-3 hover:bg-techno-dark-gold transition-colors text-xl font-bold" disabled={isLoading}>
               {isLoading ? "Registering..." : "Register"}
             </button>
+            <p className="text-white underline cursor-pointer hover:text-techno-turquoise transition-colors " onClick={() => navigate("/login")}>
+              Already have an account? Login here
+            </p>
           </div>
         </form>
       </div>

@@ -4,7 +4,6 @@ import homeIcon from "../../assets/home.svg";
 import addEmployeeIcon from "../../assets/addPerson.svg";
 import myInfoIcon from "../../assets/person.svg";
 import loginIcon from "../../assets/login.svg";
-import background from "../../assets/Background.svg";
 
 export default function DashboardElement() {
   const navigate = useNavigate();
