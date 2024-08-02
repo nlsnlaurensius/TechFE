@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DashboardElement from "./elements/DashboardElement";
 import axios from "axios";
 import background from "../assets/Background.svg";
@@ -43,10 +43,28 @@ export default function AddEmployeePage() {
     }
   };
 
+  const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreenSmall(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const [showDashboard] = useState(!isScreenSmall);
+  
+
   return (
     <div className="bg-cover bg-no-repeat h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
       <DashboardElement />
-      <div className="bg-techno-white bg-opacity-5 w-[600px] h-[550px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white ml-[600px]">
+      {showDashboard}
+      <div className={`bg-techno-white bg-opacity-5 w-[600px] h-[550px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white ${isScreenSmall ? '' : 'ml-[600px]'}`}>
         {notification && <div className="bg-techno-gold text-white text-center mt-5 p-2 px-4 rounded-[5px] mx-auto fixed left-1/2 transform -translate-x-1/2 z-50">{notification}</div>}
         {error && <div className="bg-red-600 text-white text-center mt-5 p-2 px-4 rounded-[5px] mx-auto fixed left-1/2 transform -translate-x-1/2 z-50">{error}</div>}
 

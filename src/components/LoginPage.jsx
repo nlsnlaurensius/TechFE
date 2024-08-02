@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DashboardElement from "./elements/DashboardElement";
@@ -39,11 +39,34 @@ export default function LoginPage() {
     }
   };
 
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("user"));
+    if (userInfo) {
+      setUser(userInfo);
+    }
+  }, []); // biar dapet user info dari local storage
+
+  const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsScreenSmall(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const [showDashboard] = useState(!isScreenSmall);
+
   return (
     <div className="bg-cover h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
       <DashboardElement />
-
-      <div className="bg-[#FFFFFF] bg-opacity-5 w-[650px] h-[481px] m-auto ml-[600px] rounded-[35px] backdrop-blur-[10px] flex flex-col text-white">
+      {showDashboard}
+      <div className={`bg-[#FFFFFF] bg-opacity-5 w-[650px] h-[481px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white ${isScreenSmall ? '' : 'ml-[600px]'}`}>
         <b className="text-[40px] mx-auto mt-20 font-sans">Login</b>
 
         <form onSubmit={handleLogin} className="flex flex-col items-center mt-10">

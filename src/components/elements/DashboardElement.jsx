@@ -111,7 +111,7 @@ function DashboardElement(){
                         <div className='flex px-7' onClick={() => navigate("/my-info")}>
                             <img src={boldProfile} />
                         </div>
-                        <div className='flex px-7' onClick={() => navigate("/add")}>
+                        <div className='flex px-7' onClick={() => navigate("/add-employee")}>
                             <img src={boldAdd} />
                         </div>
                         
