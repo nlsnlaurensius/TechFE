@@ -17,10 +17,12 @@ import { useState, useEffect } from 'react';
 function DashboardElement(){
     const navigate = useNavigate();
 
+    const [isloggedin, setIsLoggedIn] = useState(false);
     const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
     const handleLogout = () => {
         localStorage.removeItem("user");
         console.log("Berhasil Logout");
+        setIsLoggedIn(false);
         navigate("/login");
     };
 
@@ -31,10 +33,14 @@ function DashboardElement(){
 
         window.addEventListener('resize', handleResize);    
 
+        const user = localStorage.getItem("user");
+        setIsLoggedIn(!!user);
+
         return () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
 
     const [showDashboard, setShowDashboard] = useState(!isScreenSmall);
 
@@ -45,13 +51,13 @@ function DashboardElement(){
     return (
         <>
             {isScreenSmall && !showDashboard ? (
-                <div className="fixed p-4 bg-techno-black bg-opacity-85 rounded-br-xl h-[100px] w-[100px]">
+                <div className="fixed p-4 bg-techno-black bg-opacity-85 rounded-br-xl h-[100px] w-[100px] z-50">
                     <button onClick={toggleDashboard} className="">
                         <img src={burger} />
                     </button>
                 </div>
             ) : (
-            <div className='fixed px-6 h-screen w-[350px] md:bg-techno-black bg-opacity-85 flex flex-col justify-between'>
+            <div className='fixed px-6 h-screen w-[350px] md:bg-techno-black bg-opacity-85 flex flex-col justify-between z-50'>
                 <div className="hidden md:flex flex-col gap-4">
                     <div className="mt-6 mb-10 flex flex-row gap-4">
                         <div className='w-[50px] flex justify-center'>
@@ -77,22 +83,23 @@ function DashboardElement(){
                         </div>
                         <p className="flex flex-col justify-center text-techno-white text-[18px]">Add Employee</p>
                     </div>
-                    <div className="flex flex-row gap-4" onClick={() => navigate("/employee")}>
-                        <div className='h-[30px] w-[50px] flex justify-center'>
-                            <img src={detail} />
-                        </div>
-                        <p className="flex flex-col justify-center text-techno-white text-[18px]">Employee Detail</p>
-                    </div>
                 </div>
 
-                <button>
-                    <div className="mb-10 py-2 hidden md:flex justify-center border-2 rounded-full border-techno-white text-techno-white text-[20px]" onClick={() => navigate("/login")}>Login / Register</div>
-                </button>
+           
+                {!isloggedin ? (
+                    <button>
+                        <div className="mb-10 py-2 hidden md:flex justify-center border-2 rounded-full border-techno-white text-techno-white text-[20px]" onClick={() => navigate("/login")}>Login / Register</div>
+                    </button>
+                ) : (
+                    <button>
+                        <div className="mb-10 py-2 hidden md:flex justify-center border-2 rounded-full border-techno-white text-techno-white text-[20px]" onClick={handleLogout}>Logout</div>
+                    </button>
+                )}
             </div>
             )}
 
             {isScreenSmall && showDashboard && (
-                <div className="fixed py-6 h-screen w-[100px] bg-techno-black bg-opacity-85 flex flex-col gap-4 justify-between">
+                <div className="fixed py-6 h-screen w-[100px] bg-techno-black bg-opacity-85 flex flex-col gap-4 justify-between z-50">
                     <div className='flex flex-col gap-8'>
                         <button onClick={toggleDashboard} className="flex justify-center">
                             <img src={close} />
@@ -107,18 +114,18 @@ function DashboardElement(){
                         <div className='flex px-7' onClick={() => navigate("/add")}>
                             <img src={boldAdd} />
                         </div>
-                        <div className='flex px-7' onClick={() => navigate("/employee")}>
-                            <img src={boldDetail} />
-                        </div>
                         
                     </div>
                     <div className='flex flex-col gap-4'>
-                        <div className='flex px-7' onClick={() => navigate("/login")}>
-                            <img src={login}/>
-                        </div>
-                        <div className='flex px-7' onClick={ handleLogout }>
-                            <img src={logout}/>
-                        </div> 
+                        {!isloggedin ? (
+                                <div className='flex px-7' onClick={() => navigate("/login")}>
+                                    <img src={login} />
+                                </div>
+                            ) : (
+                                <div className='flex px-7' onClick={handleLogout}>
+                                    <img src={logout}/>
+                                </div>
+                         )}
                     </div>
                 </div>
             )}

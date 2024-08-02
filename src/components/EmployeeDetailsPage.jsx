@@ -10,6 +10,23 @@ export default function EmployeeDetail() {
   const [employee, setEmployee] = useState(null);
   const [error, setError] = useState(null);
 
+  const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsScreenSmall(window.innerWidth < 768);
+        };
+
+        window.addEventListener('resize', handleResize);    
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const [showDashboard, setShowDashboard] = useState(!isScreenSmall);
+
   useEffect(() => {
     const fetchEmployee = async () => {
       try {

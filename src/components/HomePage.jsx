@@ -39,7 +39,7 @@ export default function HomePage() {
         <div className="relative z-10 flex">
       <DashboardElement />
       
-      <div className="bg-[#FFFFFF] bg-opacity-5 w-[850px] h-auto m-20 ml-40 rounded-[35px] backdrop-blur-[10px] flex relative ">
+      <div className="bg-[#FFFFFF] bg-opacity-5 w-[850px] h-auto m-20 rounded-[35px] backdrop-blur-[10px] flex relative ml-[500px]">
         {user ? (
           
           <ol className="overflow-auto w-full">

@@ -17,7 +17,7 @@ export default function MyInfoPage() {
     <div className="bg-cover bg-no-repeat h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
       <DashboardElement />
 
-      <div className="bg-[#FFFFFF] bg-opacity-5 w-[650px] h-[481px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white">
+      <div className="bg-[#FFFFFF] bg-opacity-5 w-[650px] h-[481px] m-auto rounded-[35px] backdrop-blur-[10px] ml-[600px] flex flex-col text-white">
         <p className="text-[40px] mx-auto mt-2 font-sans font-bold">My Profile</p>
         <img src={profilepicture} className="w-[200px] h-[200px] mx-auto mt-5" />
         <p className="text-[20px] mx-auto mt-10">Currently logged in as</p>
