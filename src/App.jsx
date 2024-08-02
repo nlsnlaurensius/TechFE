@@ -5,12 +5,14 @@ import Login from "./components/LoginPage";
 import Register from "./components/RegistrationPage";
 import EmployeeDetails from "./components/EmployeeDetailsPage";
 import MyInfo from "./components/MyInfoPage";
+import Cover from "./components/CoverPage";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Cover/>}/>
           <Route path="/home" element={<Home/>}/>
           <Route path="/add-employee" element={<AddEmployee/>}/>
           <Route path="/login" element={<Login/>}/>

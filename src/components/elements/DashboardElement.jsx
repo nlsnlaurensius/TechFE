@@ -14,7 +14,7 @@ import close from '../../assets/close-icon.svg';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-function Dashboard(){
+function DashboardElement(){
     const navigate = useNavigate();
 
     const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
@@ -126,4 +126,4 @@ function Dashboard(){
     )
 }
 
-export default Dashboard;
+export default DashboardElement;
