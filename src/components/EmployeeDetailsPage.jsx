@@ -50,7 +50,7 @@ export default function EmployeeDetail() {
       <DashboardElement />
     
         <div className="relative z-10 flex justify-center">
-      <div className="bg-[#FFFFFF] bg-opacity-5 w-[850px] h-auto m-10 rounded-[35px] backdrop-blur-[10px] flex flex-col p-8 ml-40 text-white relative ">
+      <div className="bg-[#FFFFFF] bg-opacity-5 w-[850px] h-auto m-10 rounded-[35px] backdrop-blur-[10px] flex flex-col p-8 ml-[500px] text-white relative ">
       <p className="text-[25px] mx-auto font-sans font-bold">Employee Detail Info</p>
       <img src={profile} className="w-[200px] h-[200px] mx-auto mt-2" />
       <p className="ml-20">Name</p>
