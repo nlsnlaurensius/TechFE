@@ -45,13 +45,13 @@ function DashboardElement(){
     return (
         <>
             {isScreenSmall && !showDashboard ? (
-                <div className="fixed p-4 bg-techno-black rounded-br-xl h-[100px] w-[100px]">
+                <div className="fixed p-4 bg-techno-black bg-opacity-85 rounded-br-xl h-[100px] w-[100px]">
                     <button onClick={toggleDashboard} className="">
                         <img src={burger} />
                     </button>
                 </div>
             ) : (
-            <div className='fixed px-6 h-screen w-[350px] md:bg-techno-black flex flex-col justify-between'>
+            <div className='fixed px-6 h-screen w-[350px] md:bg-techno-black bg-opacity-85 flex flex-col justify-between'>
                 <div className="hidden md:flex flex-col gap-4">
                     <div className="mt-6 mb-10 flex flex-row gap-4">
                         <div className='w-[50px] flex justify-center'>
@@ -92,7 +92,7 @@ function DashboardElement(){
             )}
 
             {isScreenSmall && showDashboard && (
-                <div className="fixed py-6 h-screen w-[100px] bg-techno-black flex flex-col gap-4 justify-between">
+                <div className="fixed py-6 h-screen w-[100px] bg-techno-black bg-opacity-85 flex flex-col gap-4 justify-between">
                     <div className='flex flex-col gap-8'>
                         <button onClick={toggleDashboard} className="flex justify-center">
                             <img src={close} />
