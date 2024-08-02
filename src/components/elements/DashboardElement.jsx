@@ -18,6 +18,11 @@ function Dashboard(){
     const navigate = useNavigate();
 
     const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        console.log("Berhasil Logout");
+        navigate("/login");
+    };
 
     useEffect(() => {
         const handleResize = () => {
@@ -66,13 +71,13 @@ function Dashboard(){
                         </div>
                         <p className="flex flex-col justify-center text-techno-white text-[18px]">My Info</p>
                     </div>
-                    <div className="flex flex-row gap-4" onClick={() => navigate("/add")}>
+                    <div className="flex flex-row gap-4" onClick={() => navigate("/add-employee")}>
                         <div className='h-[30px] w-[50px] flex justify-center'>
                             <img src={add} />
                         </div>
                         <p className="flex flex-col justify-center text-techno-white text-[18px]">Add Employee</p>
                     </div>
-                    <div className="flex flex-row gap-4" onClick={() => navigate("/detail")}>
+                    <div className="flex flex-row gap-4" onClick={() => navigate("/employee")}>
                         <div className='h-[30px] w-[50px] flex justify-center'>
                             <img src={detail} />
                         </div>
@@ -102,7 +107,7 @@ function Dashboard(){
                         <div className='flex px-7' onClick={() => navigate("/add")}>
                             <img src={boldAdd} />
                         </div>
-                        <div className='flex px-7' onClick={() => navigate("/detail")}>
+                        <div className='flex px-7' onClick={() => navigate("/employee")}>
                             <img src={boldDetail} />
                         </div>
                         
@@ -111,9 +116,9 @@ function Dashboard(){
                         <div className='flex px-7' onClick={() => navigate("/login")}>
                             <img src={login}/>
                         </div>
-                        {/* <div className='flex'>
+                        <div className='flex px-7' onClick={ handleLogout }>
                             <img src={logout}/>
-                        </div> */}
+                        </div> 
                     </div>
                 </div>
             )}

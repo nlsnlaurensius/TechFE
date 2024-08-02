@@ -1,28 +1,36 @@
-import Dashboard from "./elements/Dashboard";
-import userbold from "../assets/logo-user-bold.svg";
+import React, { useEffect, useState } from "react";
+import DashboardElement from "./elements/DashboardElement";
+import background from "../assets/Background.svg";
+import profilepicture from "../assets/profile.svg";
 
-function MyInfo(){
-    return (
-        <div className="flex flex-row">
-            <Dashboard />
-            <div className="flex-grow grid place-content-center md:ml-[350px] text-techno-white bg-techno-white h-screen w-auto">
-                <div className="flex flex-col h-[600px] w-[450px] bg-techno-navy rounded-xl">
-                    <div className="flex justify-center mt-12">
-                        <img src={userbold} className="w-[40%]"/>
-                    </div>
-                    <div className="mt-8 mb-8 text-[30px] flex flex-row justify-center">
-                        <p>My Info</p>
-                    </div>
-                    <div className="flex flex-col mx-20 gap-8">
-                        <div>
-                            <p>Name</p>
-                            <div className="px-2 h-8 my-2 text-black bg-techno-white">Name</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+export default function MyInfoPage() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("user"));
+    if (userInfo) {
+      setUser(userInfo);
+    }
+  }, []); // biar dapet user info dari local storage
+
+  return (
+    <div className="bg-cover bg-no-repeat h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
+      <DashboardElement />
+
+      <div className="bg-[#FFFFFF] bg-opacity-5 w-[650px] h-[481px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white">
+        <p className="text-[40px] mx-auto mt-2 font-sans font-bold">My Profile</p>
+        <img src={profilepicture} className="w-[200px] h-[200px] mx-auto mt-5" />
+        <p className="text-[20px] mx-auto mt-10">Currently logged in as</p>
+        <div className="mx-20 mt-5 text-center border border-[#BFBFBF] bg-[#284B4D] bg-gradient-to-r from-[#D3B166] to-[#7B663A] text-white rounded-[45px] p-2">
+        <>
+        {user ? (
+          <p className="text-[20px] mx-auto">{user.name}</p>
+        ) : (
+          <p className="text-[20px] mx-auto">Guest</p>
+        )}
+        </>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
-
-export default MyInfo;
