@@ -25,7 +25,10 @@ export default {
           "sky": "#798DC5",
           "turquoise": "#57ADBF"
         }
-      }
+      },
+      fontFamily: {
+        'roboto': ['Roboto Mono', 'monospace'],
+      },
     },
   },
   plugins: [],

@@ -59,11 +59,11 @@ function DashboardElement(){
             ) : (
             <div className='fixed px-6 h-screen w-[350px] md:bg-techno-black bg-opacity-85 flex flex-col justify-between z-50'>
                 <div className="hidden md:flex flex-col gap-4">
-                    <div className="mt-6 mb-10 flex flex-row gap-4">
+                    <div className="mt-6 mb-10 flex flex-row gap-4" onClick={() => navigate("/")}>
                         <div className='w-[50px] flex justify-center'>
                             <img src={logo} />
                         </div>
-                        <p className="flex flex-col justify-center font-bold text-techno-white text-[24px]">OfficeManager</p>
+                        <p className="flex flex-col justify-center font-bold text-techno-white text-[24px] font-roboto">OfficeManager</p>
                     </div>
                     <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/home")}>
                         <div className='h-[30px] w-[50px] flex justify-center'>
@@ -85,7 +85,6 @@ function DashboardElement(){
                     </div>
                 </div>
 
-           
                 {!isloggedin ? (
                     <button>
                         <div className="mb-10 py-2 hidden md:flex justify-center border-2 rounded-full border-techno-white text-techno-white text-[20px]" onClick={() => navigate("/login")}>Login / Register</div>
@@ -125,7 +124,7 @@ function DashboardElement(){
                                 <div className='flex px-7' onClick={handleLogout}>
                                     <img src={logout}/>
                                 </div>
-                         )}
+                        )}
                     </div>
                 </div>
             )}
