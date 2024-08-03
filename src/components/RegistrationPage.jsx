@@ -53,7 +53,7 @@ export default function RegisterPage() {
     <div className="bg-cover bg-no-repeat h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
       <DashboardElement />
       
-      <div className="bg-techno-white bg-opacity-5 w-[600px] h-[570px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white">
+      <div className="bg-techno-white bg-opacity-5 w-[600px] h-[570px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white md:ml-[600px]">
         <b className="text-[40px] mx-auto mt-10 ">Register</b>
 
         <form onSubmit={handleRegister} className="flex flex-col items-center mt-10">

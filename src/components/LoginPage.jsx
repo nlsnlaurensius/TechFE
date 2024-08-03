@@ -1,116 +1,116 @@
-import { useState } from "react";
-import DashboardElement from "./elements/DashboardElement";
+import { useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import DashboardElement from "./elements/DashboardElement";
 import background from "../assets/Background.svg";
+import eye from "../assets/eye.svg";
+import eyeOff from "../assets/eyeOff.svg";
+import user from "../assets/user.svg";
 
-export default function AddEmployeePage() {
+export default function LoginPage() {
   const [name, setName] = useState("");
-  const [division, setDivision] = useState("");
-  const [salary, setSalary] = useState("");
-  const [notification, setNotification] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleAddEmployee = async () => {
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
     setError("");
-    setNotification("");
 
     try {
-      const response = await axios.post("http://localhost:8000/employee/add", {
+      const response = await axios.post("http://localhost:8000/manager/login", {
         name,
-        division,
-        salary,
+        password,
       });
 
       if (response.status === 200) {
-        console.log("Employee added:", response.data);
-        setNotification(`Added ${name} as an Employee`);
-        setName("");
-        setDivision("");
-        setSalary("");
-
-        setTimeout(() => {
-          setNotification("");
-        }, 3000);
+        console.log(response.data);
+        // untuk sementara simpen di local storage
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        navigate("/home");
       } else {
-        throw new Error("Failed to add employee");
+        throw new Error("Login failed");
       }
     } catch (error) {
-      console.error("There was an error adding the employee:", error.response?.data?.message || error.message);
-      setError(error.response?.data?.message || "There was an error adding the employee. Please try again.");
+      console.error("Login error:", error.response?.data?.message || error.message);
+      setError(error.response?.data?.message || "Login failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  
+
   return (
-    <div className="bg-cover bg-no-repeat h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
+    <div className="bg-cover bg-no-repeat h-screen w-screen flex " style={{ backgroundImage: `url(${background})` }}>
       <DashboardElement />
-      <div className="bg-techno-white bg-opacity-5 w-[600px] h-[550px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white">
-        {notification && (
-          <div className="bg-techno-gold text-white text-center mt-5 p-2 px-4 rounded-[5px] mx-auto fixed left-1/2 transform -translate-x-1/2 z-50">
-            {notification}
-          </div>
-        )}
-        {error && (
-          <div className="bg-red-600 text-white text-center mt-5 p-2 px-4 rounded-[5px] mx-auto fixed left-1/2 transform -translate-x-1/2 z-50">
-            {error}
-          </div>
-        )}
 
-        <p className="text-[40px] mx-auto mt-10 font-bold">Add New Employee</p>
+      <div className="bg-techno-white bg-opacity-5 w-[600px] h-[480px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white md:ml-[600px]">
+        <b className="text-[40px] mx-auto mt-10">Login</b>
 
-        <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center mt-10">
+        <form onSubmit={handleLogin} className="flex flex-col items-center mt-10">
           <div className="mb-6 relative w-[450px]">
             <label htmlFor="name" className="block text-[20px] mb-2"></label>
-            <input
-              id="name"
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="bg-techno-white bg-opacity-10 w-full h-[55px] rounded-[45px] text-white text-lg pl-10 pr-4 border border-t-techno-white"
-              placeholder="Name"
-              required
-            />
+            <div className="relative">
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="bg-techno-white bg-opacity-10 w-full h-[55px] rounded-[45px] text-white text-lg pl-10 pr-16 border border-t-techno-white"
+                placeholder="Username"
+                required
+              />
+              <img
+                src={user}
+                className="absolute right-5 top-4"
+                alt="username"
+                width={22}
+                height={22}
+              />
+            </div>
           </div>
 
           <div className="mb-6 relative w-[450px]">
-            <label htmlFor="division" className="block text-[20px] mb-2"></label>
-            <input
-              id="division"
-              type="text"
-              value={division}
-              onChange={(e) => setDivision(e.target.value)}
-              className="bg-techno-white bg-opacity-10 w-full h-[55px] rounded-[45px] text-white text-lg pl-10 pr-4 border border-techno-white"
-              placeholder="Division"
-              required
-            />
+            <label htmlFor="password" className="block text-[20px] mb-2"></label>
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-techno-white bg-opacity-10 w-full h-[55px] rounded-[45px] text-white text-lg pl-10 pr-16 border border-techno-white"
+                placeholder="Password"
+                required
+              />
+              <img
+                src={showPassword ? eyeOff : eye}
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-5 top-4 cursor-pointer"
+                alt="Toggle Password Visibility"
+                width={24}
+                height={24}
+              />
+            </div>
           </div>
 
-          <div className="mb-6 relative w-[450px]">
-            <label htmlFor="salary" className="block text-[20px] mb-2"></label>
-            <input
-              id="salary"
-              type="text"
-              value={salary}
-              onChange={(e) => {
-                // Hanya izinkan input yang berupa angka
-                const value = e.target.value;
-                if (/^\d*$/.test(value)) {
-                  setSalary(value);
-                }
-              }}
-              className="bg-techno-white bg-opacity-10 w-full h-[55px] rounded-[45px] text-white text-lg pl-10 pr-4 border border-techno-white"
-              placeholder="Salary (Rupiah)"
-              required
-            />
-          </div>
+          {error && <p className="text-red-800 mb-4">{error}</p>}
 
-          <div className="mt-2 text-center">
+          <div className="mt-2 space-y-3 text-center">
             <button
-              type="button"
-              onClick={handleAddEmployee}
+              type="submit"
               className="bg-techno-gold p-2 px-6 rounded-[45px] w-[450px] h-[55px] mb-3 hover:bg-techno-dark-gold transition-colors text-xl font-bold"
+              disabled={isLoading}
             >
-              Add
+              {isLoading ? "Logging in..." : "Login"}
             </button>
+            <p className="text-white underline cursor-pointer hover:text-techno-turquoise transition-colors" onClick={() => navigate("/register")}>
+              Don't have an account? Register here
+            </p>
           </div>
         </form>
       </div>
