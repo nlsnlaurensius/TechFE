@@ -1,6 +1,6 @@
-import{ useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import DashboardElement from "./elements/DashboardElement";
 import background from "../assets/Background.svg";
 import profile from "../assets/employeeProfile.svg";
@@ -17,14 +17,21 @@ export default function EmployeeDetail() {
       setIsScreenSmall(window.innerWidth < 768);
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   const [showDashboard] = useState(!isScreenSmall);
+
+  const formatSalary = (salary) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "decimal",
+      minimumFractionDigits: 0,
+    }).format(salary);
+  };
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -46,22 +53,22 @@ export default function EmployeeDetail() {
 
   return (
     <div className="bg-cover bg-no-repeat h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
-      {showDashboard && <DashboardElement />} {/*thanks gpt for the resizing*/} 
+      {showDashboard && <DashboardElement />}
       <div className="relative z-10 flex justify-center w-full">
-        <div className={`bg-[#FFFFFF] bg-opacity-5 w-[850px] h-auto m-10 rounded-[35px] backdrop-blur-[10px] flex flex-col p-8 text-white relative ${isScreenSmall ? '' : 'ml-[500px]'}`}>
+        <div className={`bg-[#FFFFFF] bg-opacity-5 w-[850px] h-auto m-10 rounded-[35px] backdrop-blur-[10px] flex flex-col p-8 text-white relative ${isScreenSmall ? "" : "ml-[500px]"}`}>
           <p className="text-[25px] mx-auto font-sans font-bold">Employee Detail Info</p>
           <img src={profile} className="w-[200px] h-[200px] mx-auto mt-2" />
-          <p className="ml-20">Name</p>
+          <p className="ml-20 font-bold text-lg">Name</p>
           <div className="border border-[#BFBFBF] bg-[#284B4D] text-white rounded-[45px] p-4 w-auto mx-9 mb-4 mt-3">
-            <h1 className="text-[18px]">{employee.name}</h1>
+            <h1 className="text-[18px] px-6">{employee.name}</h1>
           </div>
-          <p className="ml-20">Division</p>
+          <p className="ml-20 font-bold text-lg">Division</p>
           <div className="border border-[#BFBFBF] bg-[#284B4D] text-white rounded-[45px] p-4 w-auto mx-9 mb-4 mt-3">
-            <p className="text-[18px]">{employee.division}</p>
+            <p className="text-[18px] px-6">{employee.division}</p>
           </div>
-          <p className="ml-20">Salary</p>
+          <p className="ml-20 font-bold text-lg">Salary</p>
           <div className="border border-[#BFBFBF] bg-[#284B4D] text-white rounded-[45px] p-4 w-auto mx-9 mb-4 mt-3">
-            <p className="text-[18px]">{employee.salary}</p>
+            <p className="text-[18px] px-6">Rp {formatSalary(employee.salary)},00</p>
           </div>
         </div>
       </div>

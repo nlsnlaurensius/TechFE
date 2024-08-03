@@ -46,7 +46,7 @@ export default function HomePage() {
   return (
     <div className="relative flex flex-row">
       <div
-        className="absolute top-0 left-0 w-screen h-screen bg-cover bg-center bg-no-repeat z-0"
+        className="absolute top-0 left-0 w-screen h-full bg-cover bg-center bg-no-repeat z-0"
         style={{ backgroundImage: `url(${background})` }}
       />
       <div className="relative z-10 flex w-full">
