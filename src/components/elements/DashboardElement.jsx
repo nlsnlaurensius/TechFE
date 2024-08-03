@@ -51,7 +51,7 @@ function DashboardElement(){
     return (
         <>
             {isScreenSmall && !showDashboard ? (
-                <div className="fixed p-4 bg-techno-black bg-opacity-85 rounded-br-xl h-[100px] w-[100px] z-50">
+                <div className="fixed p-4 bg-techno-black bg-opacity-85 rounded-br-xl h-[100px] w-[100px] z-50 ">
                     <button onClick={toggleDashboard} className="">
                         <img src={burger} />
                     </button>
@@ -65,19 +65,19 @@ function DashboardElement(){
                         </div>
                         <p className="flex flex-col justify-center font-bold text-techno-white text-[24px]">OfficeManager</p>
                     </div>
-                    <div className="flex flex-row gap-4" onClick={() => navigate("/home")}>
+                    <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/home")}>
                         <div className='h-[30px] w-[50px] flex justify-center'>
-                            <img src={home} />
+                            <img className=""src={home} />
                         </div>
                         <p className="flex flex-col justify-center text-techno-white text-[18px]">Home</p>
                     </div>
-                    <div className="flex flex-row gap-4" onClick={() => navigate("/my-info")}>
+                    <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/my-info")}>
                         <div className='h-[30px] w-[50px] flex justify-center'>
                             <img src={profile} />
                         </div>
                         <p className="flex flex-col justify-center text-techno-white text-[18px]">My Info</p>
                     </div>
-                    <div className="flex flex-row gap-4" onClick={() => navigate("/add-employee")}>
+                    <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/add-employee")}>
                         <div className='h-[30px] w-[50px] flex justify-center'>
                             <img src={add} />
                         </div>
@@ -100,11 +100,11 @@ function DashboardElement(){
 
             {isScreenSmall && showDashboard && (
                 <div className="fixed py-6 h-screen w-[100px] bg-techno-black bg-opacity-85 flex flex-col gap-4 justify-between z-50">
-                    <div className='flex flex-col gap-8'>
+                    <div className='flex flex-col gap-8 cursor-pointer'>
                         <button onClick={toggleDashboard} className="flex justify-center">
                             <img src={close} />
                         </button>
-                        <div className='h-0.5 mx-5 bg-techno-white'></div>
+                        <div className='h-0.5 mx-0 bg-techno-white'></div>
                         <div className='flex px-7' onClick={() => navigate("/home")}>
                             <img src={boldHome} />
                         </div>
@@ -116,7 +116,7 @@ function DashboardElement(){
                         </div>
                         
                     </div>
-                    <div className='flex flex-col gap-4'>
+                    <div className='flex flex-col gap-4 cursor-pointer' >
                         {!isloggedin ? (
                                 <div className='flex px-7' onClick={() => navigate("/login")}>
                                     <img src={login} />

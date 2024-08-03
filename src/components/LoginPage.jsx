@@ -67,7 +67,7 @@ export default function LoginPage() {
               />
               <img
                 src={user}
-                className="absolute right-5 top-4 cursor-pointer"
+                className="absolute right-5 top-4"
                 alt="username"
                 width={22}
                 height={22}
