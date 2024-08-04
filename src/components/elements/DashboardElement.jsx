@@ -2,11 +2,9 @@ import logo from '../../assets/logo-office-manager.svg';
 import profile from '../../assets/my-info.svg';
 import add from '../../assets/add-person.svg';
 import home from '../../assets/home.svg';
-import detail from '../../assets/detail-person.svg';
 import boldProfile from '../../assets/bold-my-info.svg';
 import boldAdd from '../../assets/bold-add-person.svg';
 import boldHome from '../../assets/bold-home.svg';
-import boldDetail from '../../assets/bold-detail-person.svg';
 import login from '../../assets/login.svg';
 import logout from '../../assets/logout.svg';
 import burger from '../../assets/burger-icon.svg';
@@ -59,7 +57,7 @@ function DashboardElement(){
             ) : (
             <div className='fixed px-6 h-screen w-[350px] md:bg-techno-black bg-opacity-85 flex flex-col justify-between z-50'>
                 <div className="hidden md:flex flex-col gap-4">
-                    <div className="mt-6 mb-10 flex flex-row gap-4" onClick={() => navigate("/")}>
+                    <div className="mt-6 mb-10 flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/")} >
                         <div className='w-[50px] flex justify-center'>
                             <img src={logo} />
                         </div>

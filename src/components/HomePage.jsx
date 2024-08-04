@@ -1,80 +1,86 @@
-import DashboardElement from "./elements/DashboardElement";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import DashboardElement from "./elements/DashboardElement";
 import background from "../assets/Background.svg";
 
 export default function HomePage() {
-  const [data, setData] = useState([]);
+  const [employees, setEmployees] = useState([]);
   const [user, setUser] = useState(null);
-
-  const handleHomePage = async () => {
-    try {
-      const response = await axios.get("http://localhost:8000/employee/");
-      console.log(response.data);
-      setData(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    handleHomePage();
-  }, []);
-
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem("user"));
-    if (userInfo) {
-      setUser(userInfo);
-    }
-  }, []);
-
   const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsScreenSmall(window.innerWidth < 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+  const fetchEmployees = useCallback(async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/employee/");
+      setEmployees(response.data);
+    } catch (error) {
+      console.error("Failed to fetch employees:", error);
+    }
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => setIsScreenSmall(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    fetchEmployees();
+    const userInfo = JSON.parse(localStorage.getItem("user"));
+    if (userInfo) setUser(userInfo);
+  }, [fetchEmployees]);
+
   return (
-    <div className="relative flex flex-row">
+    <div className="relative min-h-screen flex">
       <div
-        className="absolute top-0 left-0 h-screen w-screen bg-cover bg-center bg-no-repeat z-0"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${background})` }}
       />
       <div className="relative z-10 flex w-full">
         <DashboardElement />
-        {isScreenSmall}
-        <div
-          className={`bg-[#FFFFFF] bg-opacity-5 h-auto m-10 rounded-[35px] backdrop-blur-[10px] flex relative w-full ${isScreenSmall ? 'p-4' : 'p-8'} ${isScreenSmall ? 'mx-4' : 'ml-[400px]  mx-10'}`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className={`bg-white bg-opacity-5 rounded-[35px] backdrop-blur-[10px] flex-grow overflow-hidden
+            ${isScreenSmall ? 'p-4 m-4' : 'p-8 ml-[400px] m-10'}`}
         >
-          {user ? (
-            <ol className="overflow-auto w-full">
-              <div className="text-white w-full mx-auto backdrop-blur-[10px] my-10 rounded-2xl flex items-center justify-center h-[50px]">
-                <p className="text-[20px]">Click to View Employee Detail</p>
-              </div>
-              {data.map((employee) => (
-                <li key={employee.id} className="mx-10 h-[70px] my-4 p-3 flex font-bold flex-col m-2">
-                  <Link to={`/employee/${employee.id}`} className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#284B4D] to-[#FFDC83]/50 rounded-2xl opacity-30"></div>
-                    <div className="relative z-10 text-white text-[30px] p-3">
+          <motion.div 
+            className="text-white w-full mx-auto backdrop-blur-[10px] my-5 rounded-2xl flex items-center justify-center h-[50px]"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <p className="text-xl md:text-2xl">
+              {user ? "Click to View Employee Detail" : "Please log in to view employee details"}
+            </p>
+          </motion.div>
+          <AnimatePresence>
+            {employees.map((employee, index) => (
+              <motion.div
+                key={employee.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <div className="relative mx-2 md:mx-10 h-[70px] my-4 p-3 font-bold rounded-2xl overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#284B4D] to-[#FFDC83]/50 opacity-30" />
+                  <div className="relative z-10 text-white text-2xl md:text-3xl p-3">
+                    {user ? (
+                      <Link to={`/employee/${employee.id}`} className="block">
+                        <p>{employee.name}</p>
+                      </Link>
+                    ) : (
                       <p>{employee.name}</p>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          ) : (
-            <p className="text-[20px] text-white font-bold mx-auto">Please log in to view employees</p>
-          )}
-        </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   );
