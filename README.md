@@ -16,7 +16,7 @@ NeonTech Database untuks support serverless database menggunakan PostGresql. Unt
 
 # How to run
 - Di root folder FrontEnd, buka terminal dan jalankan `npm run dev` untuk launch development website dalam localhost
-- Di root folder BackEnd, buka terminal dan jalankan `node index.js` atau bisa juga `npm run start` untuk menyambungkan project dari FrontEnd ke BackEnd pada PostGresql yang nantinya juga akan tersambung ke NeonTech database.
+- Di root folder BackEnd, buka terminal dan jalankan `node index.js` atau bisa juga `npm run start` untuk menyambungkan project dari FrontEnd ke BackEnd pada PostGresql yang nantinya juga akan tersambung ke NeonTech database. [Link repo back-end](https://github.com/nlsnlaurensius/TechBE).
 - Enjoy
 
 # Key Features
