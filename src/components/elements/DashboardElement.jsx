@@ -1,5 +1,5 @@
 import { motion, useAnimation } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import logo from '../../assets/logo-office-manager.svg';
@@ -16,6 +16,7 @@ import close from '../../assets/close-icon.svg';
 
 function DashboardElement() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
     const [showDashboard, setShowDashboard] = useState(!isScreenSmall);
@@ -56,6 +57,10 @@ function DashboardElement() {
         navigate("/login");
     };
 
+    const isOnPage = (path) => {
+        return location.pathname === path;
+    };
+
     return (
         <>
             {isScreenSmall && !showDashboard ? (
@@ -78,29 +83,58 @@ function DashboardElement() {
                             </div>
                             <p className="flex flex-col justify-center font-bold text-techno-white text-[24px] font-roboto">OfficeManager</p>
                         </div>
+                        {isOnPage("/home") ? (
+                        <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/home")}>
+                            <div className='h-[30px] w-[60px] flex justify-center'>
+                                <img src={boldHome} alt="home" />
+                            </div>
+                            <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px] font-bold">Home</p>
+                        </div>
+                        ) : (
                         <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/home")}>
                             <div className='h-[30px] w-[50px] flex justify-center'>
                                 <img src={home} alt="home" />
                             </div>
                             <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px]">Home</p>
                         </div>
+                        )}
+
+                        {isOnPage("/my-info") ? (
+                        <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/my-info")}>
+                            <div className='h-[30px] w-[60px] flex justify-center'>
+                                <img src={boldProfile} alt="profile" />
+                            </div>
+                            <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px] font-bold">My Info</p>
+                        </div>
+                        ) : (
                         <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/my-info")}>
                             <div className='h-[30px] w-[50px] flex justify-center'>
                                 <img src={profile} alt="profile" />
                             </div>
                             <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px]">My Info</p>
                         </div>
+                        )}
+
+                        {isOnPage("/add-employee") ? (
+                        <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/add-employee")}>
+                            <div className='h-[30px] w-[60px] flex justify-center'>
+                                <img src={boldAdd} alt="add employee" />
+                            </div>
+                            <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px] font-bold">Add Employee</p>
+                        </div>
+                        ) : (
                         <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/add-employee")}>
                             <div className='h-[30px] w-[50px] flex justify-center'>
                                 <img src={add} alt="add employee" />
                             </div>
                             <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px]">Add Employee</p>
                         </div>
+                        )}
                     </div>
 
                     {!isLoggedIn ? (
                         <button>
-                            <div className="mb-10 py-2 hidden md:flex justify-center border-2 rounded-full border-techno-white text-techno-white text-[20px]" onClick={() => navigate("/login")}>Login / Register</div>
+                            <div className="mb-10 py-2 hidden md:flex justify-center border-2 rounded-full border-techno-white hover:font-bold focus:ring focus:ring-white text-techno-white text-[20px]" onClick={() => navigate("/login")}>Login / Register</div>
                         </button>
                     ) : (
                         <button>
@@ -121,24 +155,45 @@ function DashboardElement() {
                         <button onClick={toggleDashboard} className="flex justify-center">
                             <img src={close} alt="close" />
                         </button>
-                        <div className='h-0.5 mx-0 bg-techno-white'></div>
-                        <div className='flex px-2' onClick={() => navigate("/home")}>
+                        <div className='h-0.5 mx-2 bg-techno-white'></div>
+
+                        {isOnPage("/home") ? (
+                        <div className="flex px-3 justify-center" onClick={() => navigate("/home")}>
                             <img src={boldHome} alt="home" />
                         </div>
-                        <div className='flex px-2' onClick={() => navigate("/my-info")}>
+                        ) : (
+                        <div className="flex px-4 justify-center" onClick={() => navigate("/home")}>
+                            <img src={home} alt="home" />
+                        </div>
+                        )}
+
+                        {isOnPage("/my-info") ? (
+                        <div className="flex px-3 justify-center" onClick={() => navigate("/my-info")}>
                             <img src={boldProfile} alt="profile" />
                         </div>
-                        <div className='flex px-2' onClick={() => navigate("/add-employee")}>
+                        ) : (
+                        <div className="flex px-4 justify-center" onClick={() => navigate("/my-info")}>
+                            <img src={profile} alt="profile" />
+                        </div>
+                        )}
+
+                        {isOnPage("/add-employee") ? (
+                        <div className="flex px-3 justify-center" onClick={() => navigate("/add-employee")}>
                             <img src={boldAdd} alt="add employee" />
                         </div>
+                        ) : (
+                        <div className="flex px-4 justify-center" onClick={() => navigate("/add-employee")}>
+                            <img src={add} alt="add employee" />
+                        </div>
+                        )}
                     </div>
                     <div className='flex flex-col gap-4 cursor-pointer'>
                         {!isLoggedIn ? (
-                            <div className='flex px-2' onClick={() => navigate("/login")}>
+                            <div className='flex px-4 justify-center' onClick={() => navigate("/login")}>
                                 <img src={login} alt="login" />
                             </div>
                         ) : (
-                            <div className='flex px-2' onClick={handleLogout}>
+                            <div className='flex px-4' onClick={handleLogout}>
                                 <img src={logout} alt="logout" />
                             </div>
                         )}
@@ -146,7 +201,7 @@ function DashboardElement() {
                 </motion.div>
             )}
         </>
-    )
+    );
 }
 
 export default DashboardElement;
