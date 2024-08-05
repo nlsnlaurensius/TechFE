@@ -7,6 +7,7 @@ import eyeOff from "../assets/eyeOff.svg";
 import user from "../assets/user.svg";
 import axios from "axios";
 import { motion } from "framer-motion";
+import CoverElement from "./elements/CoverElement";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -51,22 +52,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex flex-row xl:justify-between justify-center bg-cover bg-no-repeat h-screen w-auto" style={{ backgroundImage: `url(${coverBackground})` }}>
-      <div className="hidden xl:flex flex-row ml-[50px] justify-center font-roboto">
-        <div className="flex flex-col justify-between">
-          <div className="flex flex-col mt-[200px] gap-8">
-            <motion.div className="flex flex-row justify-center gap-8 cursor-pointer" onClick={() => navigate("/home")} initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-              <img src={logo} className="w-[160px] h-[160px]" alt="OfficeManager Logo" />
-              <p className="flex flex-col justify-center text-[72px] font-bold text-techno-white">OfficeManager</p>
-            </motion.div>
-            <motion.p className="flex flex-row justify-center text-[32px] font-semibold text-techno-white" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-              A Company Employee Management Website
-            </motion.p>
-          </div>
-          <motion.p className="flex flex-row mb-[100px] justify-center text-[18px] font-semibold text-techno-white" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-            Developed by Jonathan F. K. - Nelson L. - Wesley F. O.
-          </motion.p>
-        </div>
-      </div>
+      <CoverElement />
 
       <div className="flex flex-col xl:mr-[50px] justify-center">
         <div className="flex flex-col m-auto gap-4">
