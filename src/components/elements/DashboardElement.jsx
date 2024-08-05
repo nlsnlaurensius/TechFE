@@ -74,7 +74,7 @@ function DashboardElement() {
                     <div className="hidden md:flex flex-col gap-4">
                         <div className="mt-6 mb-10 flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/")} >
                             <div className='w-[50px] flex justify-center'>
-                                <img src={logo} alt="logo" />
+                                <img src={logo} title='OfficeManager' alt="logo" />
                             </div>
                             <p className="flex flex-col justify-center font-bold text-techno-white text-[24px] font-roboto">OfficeManager</p>
                         </div>
@@ -82,19 +82,19 @@ function DashboardElement() {
                             <div className='h-[30px] w-[50px] flex justify-center'>
                                 <img src={home} alt="home" />
                             </div>
-                            <p className="flex flex-col justify-center text-techno-white text-[18px]">Home</p>
+                            <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px]">Home</p>
                         </div>
                         <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/my-info")}>
                             <div className='h-[30px] w-[50px] flex justify-center'>
                                 <img src={profile} alt="profile" />
                             </div>
-                            <p className="flex flex-col justify-center text-techno-white text-[18px]">My Info</p>
+                            <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px]">My Info</p>
                         </div>
                         <div className="flex flex-row gap-4 cursor-pointer" onClick={() => navigate("/add-employee")}>
                             <div className='h-[30px] w-[50px] flex justify-center'>
                                 <img src={add} alt="add employee" />
                             </div>
-                            <p className="flex flex-col justify-center text-techno-white text-[18px]">Add Employee</p>
+                            <p className="flex flex-col justify-center text-techno-white hover:text-white hover:font-bold text-[18px]">Add Employee</p>
                         </div>
                     </div>
 
@@ -104,7 +104,7 @@ function DashboardElement() {
                         </button>
                     ) : (
                         <button>
-                            <div className="mb-10 py-2 hidden md:flex justify-center border-2 rounded-full border-techno-white text-techno-white text-[20px]" onClick={handleLogout}>Logout</div>
+                            <div className="mb-10 py-2 hidden md:flex justify-center border-2 rounded-full border-techno-white active:bg-white active:text-black hover:font-bold focus:ring focus:ring-white text-techno-white text-[20px]" onClick={handleLogout}>Logout</div>
                         </button>
                     )}
                 </div>

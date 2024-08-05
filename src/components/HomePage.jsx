@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import DashboardElement from "./elements/DashboardElement";
 import background from "../assets/Background.svg";
@@ -55,6 +55,8 @@ export default function HomePage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchBy, setSearchBy] = useState("name");
 
+  const navigate = useNavigate();
+
   const fetchEmployees = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:8000/employee/");
@@ -62,6 +64,7 @@ export default function HomePage() {
       setFilteredEmployees(response.data);
     } catch (error) {
       console.error("Failed to fetch employees:", error);
+      navigate("/error");
     }
   }, []);
 

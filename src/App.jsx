@@ -19,7 +19,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/employee/:id" element={<EmployeeDetails />} />
           <Route path="/my-info" element={<MyInfo />} />
-          <Route path="*" element={<NotFoundPage />} /> 
+          <Route path="/error" element={<NotFoundPage />} /> 
         </Routes>
       </BrowserRouter>
     </>
