@@ -15,7 +15,7 @@ const SearchByDropdown = ({ searchBy, setSearchBy }) => {
     <div className="relative w-full md:w-48 z-50">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full h-full p-3 px-5 rounded-full text-techno-white bg-white bg-opacity-20 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-blue-300 flex items-center justify-between"
+        className="w-full h-full p-3 px-3 rounded-full text-techno-white bg-white bg-opacity-20 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-blue-300 flex items-center justify-between"
       >
         <span>{searchBy === "name" ? "Search by Name" : "Search by Division"}</span>
         <svg className={`w-5 h-5 ml-2 transform transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} fill="currentColor" viewBox="0 0 20 20">
