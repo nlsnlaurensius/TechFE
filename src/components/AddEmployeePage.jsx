@@ -72,7 +72,7 @@ export default function AddEmployeePage() {
   return (
     <div className="bg-cover bg-no-repeat h-screen w-screen flex" style={{ backgroundImage: `url(${background})` }}>
       <DashboardElement />
-      <div className={`bg-white bg-opacity-5 w-[90%] max-w-[600px] h-[550px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white ${isScreenSmall ? '' : 'ml-[600px]'}`}>
+      <div className={`bg-white bg-no-repeat bg-opacity-5 w-[90%] max-w-[600px] h-[550px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white ${isScreenSmall ? '' : 'ml-[600px]'}`}>
         <AnimatePresence>
           {notification && (
             <motion.div
@@ -109,7 +109,7 @@ export default function AddEmployeePage() {
           </div>
         ) : (
           <>
-            <p className="text-[40px] mx-auto mt-10 font-bold">Add New Employee</p>
+            <p className="text-4xl justify-center text-center mx-auto mt-10 font-bold">Add New Employee</p>
 
             <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center mt-10">
               <AnimatePresence>

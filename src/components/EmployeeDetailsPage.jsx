@@ -76,8 +76,8 @@ export default function EmployeeDetail() {
   if (!employee) return <div className="text-white">Loading...</div>;
 
   return (
-    <div className="bg-cover bg-no-repeat min-h-screen flex" style={{ backgroundImage: `url(${background})` }}>
-      { <DashboardElement />}
+    <div className="bg-cover bg-no-repeat min-h-screen flex p-5" style={{ backgroundImage: `url(${background})` }}>
+      {<DashboardElement />}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="relative z-10 flex justify-center w-full">
         <div className={`bg-white bg-opacity-5 w-full max-w-[850px] m-4 rounded-[35px] backdrop-blur-[10px] flex flex-col p-8 text-white ${isScreenSmall ? "" : "ml-[500px]"}`}>
           <h1 className="text-3xl text-center font-bold mb-6">Employee Detail Info</h1>
@@ -90,7 +90,7 @@ export default function EmployeeDetail() {
                 {isEditing ? (
                   <input type={field === "salary" ? "number" : "text"} name={field} value={employee[field]} onChange={handleChange} className="text-lg px-6 bg-transparent w-full outline-none" />
                 ) : (
-                  <p className="text-lg px-6">{field === "salary" ? formatSalary(employee[field]) : employee[field]}</p>
+                  <p className="text-lg px-5">{field === "salary" ? formatSalary(employee[field]) : employee[field]}</p>
                 )}
               </div>
             </motion.div>
@@ -101,11 +101,11 @@ export default function EmployeeDetail() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={isEditing ? handleSave : () => setIsEditing(true)}
-              className={`rounded-[35px] w-[150px] h-[55px] text-xl font-bold ${isEditing ? "bg-green-600 hover:bg-green-700" : "bg-cyan-600 hover:bg-cyan-700"}`}
+              className={`rounded-[35px] w-[150px] h-[55px] text-xl font-bold ${isEditing ? "border border-white bg-green-600 bg-opacity-70 hover:bg-green-900" : "border border-white bg-opacity-70 bg-cyan-600 hover:bg-cyan-900"}`}
             >
               {isEditing ? "Save" : "Edit"}
             </motion.button>
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleDelete} className="bg-red-600 hover:bg-red-700 rounded-[35px] w-[150px] h-[55px] text-xl font-bold">
+            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={handleDelete} className="border border-white bg-opacity-70 bg-red-600 hover:bg-red-900 rounded-[35px] w-[150px] h-[55px] text-xl font-bold">
               Delete
             </motion.button>
           </div>
