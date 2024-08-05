@@ -6,6 +6,7 @@ import DashboardElement from "./elements/DashboardElement";
 import background from "../assets/Background.svg";
 import userTieIcon from "../assets/userTie.svg";
 import searchIcon from "../assets/search.svg";
+import arrow from "../assets/arrow.svg";
 
 const SearchByDropdown = ({ searchBy, setSearchBy }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,11 +18,7 @@ const SearchByDropdown = ({ searchBy, setSearchBy }) => {
         className="w-full h-full p-3 px-5 rounded-full text-techno-white bg-white bg-opacity-20 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-blue-300 flex items-center justify-between"
       >
         <span>{searchBy === "name" ? "Search by Name" : "Search by Division"}</span>
-        <svg
-          className={`w-5 h-5 ml-2 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
+        <svg className={`w-5 h-5 ml-2 transform transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
         </svg>
       </button>
@@ -30,9 +27,7 @@ const SearchByDropdown = ({ searchBy, setSearchBy }) => {
           {["name", "division"].map((option) => (
             <li
               key={option}
-              className={`cursor-pointer p-3 transition-colors duration-200 hover:bg-techno-green hover:bg-opacity-50 ${
-                searchBy === option ? "bg-techno-green bg-opacity-70 text-white" : "text-techno-white"
-              }`}
+              className={`cursor-pointer p-3 transition-colors duration-200 hover:bg-techno-green hover:bg-opacity-50 ${searchBy === option ? "bg-techno-green bg-opacity-70 text-white" : "text-techno-white"}`}
               onClick={() => {
                 setSearchBy(option);
                 setIsOpen(false);
@@ -54,6 +49,7 @@ export default function HomePage() {
   const [isScreenSmall, setIsScreenSmall] = useState(window.innerWidth < 768);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchBy, setSearchBy] = useState("name");
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   const navigate = useNavigate();
 
@@ -66,12 +62,12 @@ export default function HomePage() {
       console.error("Failed to fetch employees:", error);
       navigate("/error");
     }
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     const handleResize = () => setIsScreenSmall(window.innerWidth < 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -81,22 +77,33 @@ export default function HomePage() {
   }, [fetchEmployees]);
 
   useEffect(() => {
-    const filtered = employees.filter(employee => 
-      employee[searchBy].toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const filtered = employees.filter((employee) => employee[searchBy].toLowerCase().includes(searchTerm.toLowerCase()));
     setFilteredEmployees(filtered);
   }, [searchTerm, searchBy, employees]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.pageYOffset > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="relative min-h-screen flex">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${background})` }}
-      />
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${background})` }} />
       <div className="relative z-10 flex w-full">
         <DashboardElement />
         <motion.div
@@ -104,7 +111,7 @@ export default function HomePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className={`bg-white bg-opacity-5 rounded-[35px] backdrop-blur-[10px] flex-grow overflow-hidden
-            ${isScreenSmall ? 'p-4 m-4' : 'p-8 ml-[400px] m-10'}`}
+            ${isScreenSmall ? "p-4 m-4" : "p-8 ml-[400px] m-10"}`}
         >
           <motion.div
             className="text-white w-full mx-auto backdrop-blur-[10px] my-5 rounded-2xl flex flex-col items-center justify-center p-6 relative z-30"
@@ -122,11 +129,7 @@ export default function HomePage() {
                   onChange={handleSearchChange}
                   className="w-full h-full p-3 pl-10 rounded-full text-techno-white bg-white bg-opacity-20 backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-blue-300"
                 />
-                <img 
-                  src={searchIcon} 
-                  alt="Search"
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5"
-                />
+                <img src={searchIcon} alt="Search" className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" />
               </div>
               <SearchByDropdown searchBy={searchBy} setSearchBy={setSearchBy} />
             </div>
@@ -134,13 +137,7 @@ export default function HomePage() {
           <div className="relative z-20">
             <AnimatePresence>
               {filteredEmployees.map((employee, index) => (
-                <motion.div
-                  key={employee.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ delay: index * 0.05 }}
-                >
+                <motion.div key={employee.id} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ delay: index * 0.05 }}>
                   <div className="relative mx-2 md:mx-10 my-4 p-4 font-bold rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105">
                     <div className="absolute inset-0 bg-gradient-to-r from-[#284B4D] to-[#FFDC83]/50 opacity-30" />
                     <div className="relative z-10 text-white flex flex-col md:flex-row items-start md:items-center justify-between">
@@ -153,9 +150,7 @@ export default function HomePage() {
                       </div>
                       {user && (
                         <Link to={`/employee/${employee.id}`} className="ml-auto mt-2 md:mt-0">
-                          <button className="bg-opacity-70 bg-techno-green hover:bg-techno-dark-green rounded-full py-1.5 px-3 text-xs md:text-xl font-bold transition duration-300">
-                            View Details
-                          </button>
+                          <button className="bg-opacity-70 bg-techno-green hover:bg-techno-dark-green rounded-full py-1.5 px-3 text-xs md:text-xl font-bold transition duration-300">View Details</button>
                         </Link>
                       )}
                     </div>
@@ -166,6 +161,21 @@ export default function HomePage() {
           </div>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 bg-techno-green hover:bg-techno-dark-green text-white rounded-full p-3 shadow-lg z-50 transition-colors duration-300"
+          >
+            <img className="w-[30px] h-[30px]" src={arrow}></img>
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
