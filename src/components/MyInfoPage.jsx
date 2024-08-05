@@ -28,10 +28,10 @@ export default function MyInfoPage() {
   const showDashboard = !isScreenSmall;
 
   return (
-    <div className="bg-cover bg-no-repeat h-screen w-screen flex p-5" style={{ backgroundImage: `url(${background})` }}>
+    <div className="bg-cover bg-no-repeat h-screen w-screen flex " style={{ backgroundImage: `url(${background})` }}>
       <DashboardElement />
       <motion.div
-        className={`bg-[#FFFFFF] bg-opacity-5 w-[650px] h-[481px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col text-white ${isScreenSmall ? '' : 'ml-[600px]'}`}
+        className={`bg-[#FFFFFF] bg-opacity-5 w-[90%] max-w-[600px] h-[550px] m-auto  rounded-[35px] backdrop-blur-[10px] flex flex-col text-white ${isScreenSmall ? '' : 'ml-[600px]'}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}

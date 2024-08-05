@@ -76,10 +76,10 @@ export default function EmployeeDetail() {
   if (!employee) return <div className="text-white">Loading...</div>;
 
   return (
-    <div className="bg-cover bg-no-repeat min-h-screen flex p-5" style={{ backgroundImage: `url(${background})` }}>
+    <div className="bg-cover bg-no-repeat min-h-screen flex " style={{ backgroundImage: `url(${background})` }}>
       {<DashboardElement />}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="relative z-10 flex justify-center w-full">
-        <div className={`bg-white bg-opacity-5 w-full max-w-[850px] m-4 rounded-[35px] backdrop-blur-[10px] flex flex-col p-8 text-white ${isScreenSmall ? "" : "ml-[500px]"}`}>
+        <div className={`bg-white bg-opacity-5 w-[90%] max-w-[750px] m-auto rounded-[35px] backdrop-blur-[10px] flex flex-col p-8 text-white ${isScreenSmall ? "" : "ml-[500px]"}`}>
           <h1 className="text-3xl text-center font-bold mb-6">Employee Detail Info</h1>
           <img src={profile} alt="Employee profile" className="w-[200px] h-[200px] mx-auto mb-6" />
 
