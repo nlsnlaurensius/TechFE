@@ -57,14 +57,17 @@ User (manager) juga dapat menambahkan employee dalam database dengan cara memasu
 
 # Other Features
 ## Page Resizing
-Ukuran semua page dapat disesuaikan berdasarkan ukuran window yang digunakan. Terdapat dua versi dari masing-masing page, yaitu full screen dan small screen. Ini telah ditunjukkan pada bagian di atas. Gambar kiri adalah jika window full screen sedangkan gambar kanan adalah window small.
+Ukuran semua page dapat disesuaikan berdasarkan ukuran window yang digunakan. Terdapat dua versi dari masing-masing page, yaitu full screen dan small screen. Ini telah ditunjukkan pada bagian di atas. Gambar atas adalah jika window full screen sedangkan gambar bawah adalah window small.
 
 ## Dashboard
 <img src="./pics/dashboard.png" width="650px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./pics/dashboard2.png" width="250px"><br>
 Terdapat dashboard sebagai component dalam project ini. Dashboard ditunjukkan pada div berwarna hitam pada bagian kiri semua page. Ataupun dapat berbentuk burger icon yang dapat di-toggle untuk mengeluarkan menu dashboard jika windownya berukuran small.
 
-Pada window small, sebelum toggle dashboard:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Setelah toggle dashboard:<br> 
-<img src="./pics/toggle.png" width="200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="./pics/toggle2.png" width="200px">
+Pada window small, sebelum toggle dashboard:<br>
+<img src="./pics/toggle.png" width="200px">
+
+Setelah toggle dashboard:<br> 
+<img src="./pics/toggle2.png" width="200px">
 
 
 ## Error Page Navigation
